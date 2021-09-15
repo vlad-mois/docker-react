@@ -9,3 +9,17 @@ services:
     volumes:
       - '/app/node_modules'
       - '.:/app'
+  tests:
+    build:
+      context: '.'
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    environment:
+      - CI=true
+    command: ["npm", "run", "test"]
+  server:
+    build: .
+    ports:
+      - '8080:80'
